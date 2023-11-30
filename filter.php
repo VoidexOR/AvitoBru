@@ -43,15 +43,12 @@
 <h1>Результаты запроса:</h1>
 
 <?php
-// Example computers with "img_src" column for images
 $filteredComputers = [
     ['brand' => 'Dell', 'price' => 800, 'condition' => 'Новое', 'wifi' => true, 'ssd' => true, 'gpu' => false, 'img_src' => 'https://img.mvideo.ru/Pdb/30022732b.jpg'],
     ['brand' => 'HP', 'price' => 600, 'condition' => 'Б/у', 'wifi' => true, 'ssd' => false, 'gpu' => true, 'img_src' => 'https://img.mvideo.ru/Pdb/30020479b.jpg'],
     ['brand' => 'Lenovo', 'price' => 700, 'condition' => 'Новое', 'wifi' => true, 'ssd' => true, 'gpu' => true, 'img_src' => 'https://img.mvideo.ru/Pdb/30030931b.jpg'],
-    // Add more example computers as needed
 ];
 
-// Retrieve form data
 $brand = $_POST['brand'] ?? '';
 $maxPrice = $_POST['max_price'] ?? '';
 $condition = $_POST['condition'] ?? '';
@@ -59,7 +56,6 @@ $wifi = isset($_POST['wifi']) ? true : false;
 $ssd = isset($_POST['ssd']) ? true : false;
 $gpu = isset($_POST['gpu']) ? true : false;
 
-// Filter computers based on form data
 $filteredComputers = array_filter($filteredComputers, function ($computer) use ($brand, $maxPrice, $condition, $wifi, $ssd, $gpu) {
     $brandMatch = empty($brand) || stripos($computer['brand'], $brand) !== false;
     $maxPriceMatch = empty($maxPrice) || $computer['price'] <= (int)$maxPrice;
@@ -71,12 +67,9 @@ $filteredComputers = array_filter($filteredComputers, function ($computer) use (
     return $brandMatch && $maxPriceMatch && $conditionMatch && $wifiMatch && $ssdMatch && $gpuMatch;
 });
 
-// Check if the array is not empty before using foreach
 if (!empty($filteredComputers)) {
-    // Display filtered results
     foreach ($filteredComputers as $computer) {
         echo '<div class="computer-box">';
-        // Use the "img_src" column for the image URL
         echo '<img src="' . $computer['img_src'] . '" alt="Computer Image">';
         echo '<p>';
         echo 'Производитель: ' . $computer['brand'] . '<br>';
